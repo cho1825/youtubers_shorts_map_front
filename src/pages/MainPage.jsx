@@ -1,15 +1,34 @@
 import "./MainPage.css";
 import HeaderSection from "../components/common/HeaderSection.jsx"
-import MapSection from "../components/main/MapSection.jsx";
-import MessageSection from "../components/main/MessageSection.jsx";
+import MapSection from "../components/main/jsx/MapSection.jsx";
+import MessageSection from "../components/main/jsx/MessageSection.jsx";
+
+import {useState} from "react";
+
 const MainPage = () => {
+
+    const [showMessageSection, setShowMessageSection] = useState(true);
+    const [mapData, setMapData] = useState(null);
+
+    const personClick = () => {
+        setShowMessageSection(false);
+    }
 
     return (
         <div className="container">
 
-            <HeaderSection></HeaderSection>
-            <MapSection></MapSection>
-            <MessageSection></MessageSection>
+            <HeaderSection/>
+            <MapSection
+                showMessageSection={showMessageSection}
+                setShowMessageSection={setShowMessageSection}
+                mapData={mapData}
+            />
+            {showMessageSection &&
+                <MessageSection
+                    onZoomClick={personClick}
+                    setMapData={setMapData}
+                />
+            }
 
         </div>
 
