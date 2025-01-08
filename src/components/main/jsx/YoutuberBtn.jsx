@@ -1,9 +1,17 @@
 import "../css/YoutuberBtn.css"
 
 const YoutuberBtn = ({name, count, onZoomClick, regionCode, youtuberNm, getMapDataByApi}) => {
-    const handleClick = () => {
-        onZoomClick();
-        getMapDataByApi(regionCode, youtuberNm);
+    const handleClick = async () => {
+        try {
+            // getMapDataByApi가 성공할 때까지 기다림
+            await getMapDataByApi(regionCode, youtuberNm);
+            console.log("getMapDataByApi 호출 성공");
+
+            // 성공 후 onZoomClick 실행
+            onZoomClick();
+        } catch (error) {
+            console.error("getMapDataByApi 호출 실패:", error);
+        }
     };
 
     return (

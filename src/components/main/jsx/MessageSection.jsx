@@ -7,7 +7,7 @@ const MessageSection = ({onZoomClick, setMapData}) => {
     const getMapDataByApi = async (regionCode,youtuberNm) => {
 
         try{
-            const response = await fetch(`http://localhost:8080/api/makers?regionCode=${regionCode}&youtuberNm=${youtuberNm}`,{
+            const response = await fetch(`http://192.168.0.177:8080/api/makers?regionCode=${regionCode}&youtuberNm=${youtuberNm}`,{
                 method: "GET",
             });
             if (!response.ok) {

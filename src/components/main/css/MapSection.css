@@ -8,7 +8,9 @@
 
 .map-container.expanded {
     background-color: white;
-    height: 80%;
+    /*height: 80%;*/
+    width: 100%;
+    height: 100%;
     flex-direction: column;
     display: flex; /* Flexbox 활성화 */
     justify-content: center; /* 가로 방향 중앙 정렬 */
