@@ -1,5 +1,5 @@
 import "./MainPage.css";
-import HeaderSection from "../components/common/HeaderSection.jsx"
+import HeaderSection from "../components/common/jsx/HeaderSection.jsx"
 import MapSection from "../components/main/jsx/MapSection.jsx";
 import MessageSection from "../components/main/jsx/MessageSection.jsx";
 
@@ -17,7 +17,12 @@ const MainPage = () => {
     return (
         <div className="container">
 
-            <HeaderSection/>
+            <HeaderSection
+                showMessageSection={showMessageSection}
+                setShowMessageSection={setShowMessageSection}
+                mapData={mapData}
+                setMapData={setMapData}
+            />
             <MapSection
                 showMessageSection={showMessageSection}
                 setShowMessageSection={setShowMessageSection}
