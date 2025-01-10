@@ -1,0 +1,36 @@
+
+
+.image-container {
+    width: 10px;
+    height: 10px;
+}
+
+.logo-image {
+    margin-top: 8px;
+    width: 25%;
+    height: 25%;
+}
+
+.menu-icon {
+
+    position: fixed;
+    top: 20px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 8%;
+    height: 3%;
+    cursor: pointer;
+}
+
+.menu-line {
+    background-color: rgb(153, 153, 153); /* 회색 색상 */
+    height: 2px;
+    width: 70%;
+    border-radius: 2px;
+}
+
+
+
+
