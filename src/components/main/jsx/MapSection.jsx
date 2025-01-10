@@ -1,8 +1,8 @@
 import "../css/MapSection.css"
-import { CSSTransition } from 'react-transition-group';
 import {CustomOverlayMap, Map, MapMarker} from "react-kakao-maps-sdk";
 import {useEffect, useMemo, useRef, useState} from "react";
-
+import { motion } from "framer-motion";
+import MapFloatSection from "./mapfloat/MapFloatSection.jsx";
 
 const MapSection = ({showMessageSection, setShowMessageSection, mapData}) => {
     const mapRef = useRef(null); // Map 객체 참조
@@ -50,22 +50,111 @@ const MapSection = ({showMessageSection, setShowMessageSection, mapData}) => {
 
 
     return (
-        <div className={`map-container ${showMessageSection ? '' : 'expanded'}`}>
-            <div className={`map-round ${showMessageSection ? '' : 'expanded'}`}>
-                <Map className="kakao-map"
-                     center={{lat: 36.3504119, lng: 127.3845475}}
-                     style={{width: '95%', height: '94%'}}
-                     level={7}
-                     onBoundsChanged={handleBoundsChanged} // 지도 범위 변경 이벤트
-                     onZoomChanged={handleZoomChanged} // 줌 레벨 변경 이벤트
-                     onCreate={(map) => {
-                         mapRef.current = map; // Map 객체 저장
-                     }}
+        //맵 섹션 두개로 분리
+        showMessageSection ? (
+            <motion.div
+                key={showMessageSection} // 상태 변화마다 초기화
+                className={`map-container ${showMessageSection ? "" : "expanded"}`}
+                initial={{scale: 0 }} // 가운데에서 작게 시작
+                animate={{
+                    // scale: 1, // 점점 커지며 나타남
+                    scale: showMessageSection ? 1 : 0.9, // expanded 상태에서 설정된 크기로 확대
+                    rotate: showMessageSection ? [0, 0, 5, 0]: [], // 다 나타난 후 한 번 기울어짐
+                }}
+                transition={{
+                    duration: 1.2, // 전체 애니메이션 지속 시간
+                    ease: "easeInOut",
+                    times: [0, 0.7, 0.9, 1], // 애니메이션 구간 설정
+                }}
+                style={{
+                    transformOrigin: "center", // 애니메이션의 중심 설정
+                }}
+            >
+                <div className={`map-round ${showMessageSection ? "" : "expanded"}`}>
+                    <Map
+                        className="kakao-map"
+                        center={{lat: 36.3504119, lng: 127.3845475}}
+                        style={{
+                            width: "95%",
+                            height: "94%"
+                        }}
+                        level={7}
+                        onBoundsChanged={handleBoundsChanged} // 지도 범위 변경 이벤트
+                        onZoomChanged={handleZoomChanged} // 줌 레벨 변경 이벤트
+                        onCreate={(map) => {
+                            mapRef.current = map; // Map 객체 저장
+                        }}
+                    >
+                        {filteredData.map((location) => (
+                            <div key={location.id}>
+                                <MapMarker
+                                    position={{
+                                        lat: location.latitude,
+                                        lng: location.longitude,
+                                    }}
+                                    title={location.name}
+                                    image={{
+                                        src: location.categoryGroupName === "음식점"
+                                            ? "/img/restaurnt.png"
+                                            : "/img/cafe.png",
+                                        size: {width: 50, height: 50},
+                                        options: {offset: {x: 15, y: 15}},
+                                    }}
+                                />
+                                {zoomLevel <= 5 && (
+                                    <CustomOverlayMap
+                                        position={{
+                                            lat: location.latitude,
+                                            lng: location.longitude,
+                                        }}
+                                        clickable={true}
+                                    >
+                                        <div className="custom-overlay always-visible">
+                                            <span>{location.name}</span>
+                                        </div>
+                                    </CustomOverlayMap>
+                                )}
+                            </div>
+                        ))}
+                    </Map>
+                </div>
+            </motion.div>
+        ) : (
+
+            <motion.div
+                className='map-container expanded'
+                initial={{scale: 0.8}} // 가운데에서 작게 시작
+                animate={{
+                    // scale: 1, // 점점 커지며 나타남
+                    scale: 1, // expanded 상태에서 설정된 크기로 확대
+                    rotate: [], // 다 나타난 후 한 번 기울어짐
+                }}
+                transition={{
+                    duration: 0.7, // 전체 애니메이션 지속 시간
+                    ease: "linear",
+                    times: [0, 0.7, 0.9, 1], // 애니메이션 구간 설정
+                }}
+                style={{
+                    transformOrigin: "center", // 애니메이션의 중심 설정
+                }}
+            >
+                <Map
+                    className="kakao-map"
+                    center={{lat: 36.3504119, lng: 127.3845475}}
+                    style={{
+                        width: "100%",
+                        height: "100%",
+                    }}
+                    level={7}
+                    onBoundsChanged={handleBoundsChanged} // 지도 범위 변경 이벤트
+                    onZoomChanged={handleZoomChanged} // 줌 레벨 변경 이벤트
+                    onCreate={(map) => {
+                        mapRef.current = map; // Map 객체 저장
+                    }}
                 >
                     {filteredData.map((location) => (
-                        <div >
+                        <div key={location.id}>
                             <MapMarker
-                                key={location.id}
                                 position={{
                                     lat: location.latitude,
                                     lng: location.longitude,
@@ -79,8 +168,7 @@ const MapSection = ({showMessageSection, setShowMessageSection, mapData}) => {
                                     options: {offset: {x: 15, y: 15}},
                                 }}
                             />
-                            {/* 마커 아래 텍스트 (줌 레벨 조건 추가) */}
-                            {zoomLevel <= 5 && ( // 줌 레벨이 7 이하일 때만 표시
+                            {zoomLevel <= 5 && (
                                 <CustomOverlayMap
                                     position={{
                                         lat: location.latitude,
@@ -93,14 +181,13 @@ const MapSection = ({showMessageSection, setShowMessageSection, mapData}) => {
                                     </div>
                                 </CustomOverlayMap>
                             )}
-
                         </div>
-
                     ))}
-
                 </Map>
-            </div>
-        </div>
+                <MapFloatSection/>
+            </motion.div>
+        )
+
     );
 }
 export default MapSection;
