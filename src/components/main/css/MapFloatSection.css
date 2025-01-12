@@ -1,0 +1,11 @@
+.floating-div{
+    position: absolute;
+    display: flex;
+    justify-content: space-evenly;
+    top: 30px;
+    right: auto;
+    z-index: 1000;
+    width: 70%;
+    height: 5%;
+
+}

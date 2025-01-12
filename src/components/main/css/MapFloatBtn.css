@@ -1,0 +1,25 @@
+
+.floating-button {
+    flex-direction: row;
+    /*top: 30px;*/
+    /*right: 20px;*/
+    /*z-index: 1000;*/
+    padding: 10px 25px;
+    font-size: 10px;
+    text-align: center;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #000;
+    background-color: white;
+    border: none;
+    border-radius: 50px;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+
+.floating-button:hover {
+    background-color: orangered;
+}
