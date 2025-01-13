@@ -1,14 +1,21 @@
-import "../css/YoutuberBtn.css"
+import "../../css/YoutuberBtn.css"
+import useMapInfoStore from "../../../../store/mapInfo.js";
 
 const YoutuberBtn = ({name, count, onZoomClick, regionCode, youtuberNm, getMapDataByApi}) => {
+
+    const setYoutuberNm = useMapInfoStore((state) => state.setYoutuberNm);
+    const setRegionCode = useMapInfoStore((state) => state.setRegionCode);
+
     const handleClick = async () => {
         try {
+            //전역 상태 관리 스토어에 넣어줌
+
+
+            onZoomClick();
             // getMapDataByApi가 성공할 때까지 기다림
             await getMapDataByApi(regionCode, youtuberNm);
-            console.log("getMapDataByApi 호출 성공");
-
-            // 성공 후 onZoomClick 실행
-            onZoomClick();
+            setRegionCode(regionCode);
+            setYoutuberNm(youtuberNm);
         } catch (error) {
             console.error("getMapDataByApi 호출 실패:", error);
         }

@@ -7,5 +7,8 @@ export default defineConfig({
   server: {
     host: true, // 0.0.0.0으로 바인딩하여 네트워크 전체에서 접근 가능
     port: 5173  // 필요에 따라 포트 설정
-  }
+  },
+  optimizeDeps: {
+    include: ['zustand'], // Zustand를 최적화 종속성에 명시적으로 포함
+  },
 })
