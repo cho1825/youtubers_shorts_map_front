@@ -1,27 +1,8 @@
-import "../css/MessageSection.css"
+import "../../css/TextSection.css"
 import YoutuberBtn from "./YoutuberBtn.jsx";
 
 
-const MessageSection = ({onZoomClick, setMapData}) => {
-
-    const getMapDataByApi = async (regionCode,youtuberNm) => {
-
-        try{
-            const response = await fetch(`http://192.168.0.177:8080/api/makers?regionCode=${regionCode}&youtuberNm=${youtuberNm}`,{
-                method: "GET",
-            });
-            if (!response.ok) {
-                throw new Error("Api 요청 실패: " + response.statusText);
-            }
-
-            const placeDtoList = await response.json();
-            setMapData(placeDtoList);
-        }catch (error){
-            console.error("API 요청 중 에러 발생:", error);
-            setMapData(null)
-        }
-
-    }
+const MessageSection = ({onZoomClick, setMapData, getMapDataByApi}) => {
 
     return (
         <div className="message-container">

@@ -1,5 +1,5 @@
 import React from "react";
-import "../../../../css/MapFloatBtn.css";
+import "../../../../css/CategoryFloatBtn.css";
 
 const MapFloatBtn = ({ categoryNm, category, isActive, onCategorySelect }) => {
     const handleClick = () => {

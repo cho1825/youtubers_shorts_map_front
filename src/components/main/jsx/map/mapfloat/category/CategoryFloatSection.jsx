@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import MapFloatBtn from "./CategoryFloatBtn.jsx";
-import "../../../../css/MapFloatSection.css";
+import "../../../../css/CategoryFloatSection.css";
 import { useState } from "react";
 import useMapInfoStore from "../../../../../../store/mapInfo.js";
 

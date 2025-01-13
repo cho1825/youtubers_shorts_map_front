@@ -1,9 +1,6 @@
 
 .floating-button {
     flex-direction: row;
-    /*top: 30px;*/
-    /*right: 20px;*/
-    /*z-index: 1000;*/
     padding: 10px 25px;
     font-size: 10px;
     text-align: center;
@@ -18,8 +15,8 @@
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
     cursor: pointer;
 }
-
-
-.floating-button:hover {
+.floating-button.active {
     background-color: orangered;
+    color: white;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
