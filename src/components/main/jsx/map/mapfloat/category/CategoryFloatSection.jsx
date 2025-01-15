@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
-import MapFloatBtn from "./CategoryFloatBtn.jsx";
+import CategoryFloatBtn from "./CategoryFloatBtn.jsx";
 import "../../../../css/CategoryFloatSection.css";
 import { useState } from "react";
 import useMapInfoStore from "../../../../../../store/mapInfo.js";
 
-const MapFloatSection = ({ getMapDataByApi }) => {
+const CategoryFloatSection = ({ getMapDataByApi }) => {
     const [activeCategory, setActiveCategory] = useState("all");
 
     // 전역 상태
@@ -35,7 +35,7 @@ const MapFloatSection = ({ getMapDataByApi }) => {
                 { categoryNm: "음식점", category: "restaurant" },
                 { categoryNm: "카페", category: "cafe" },
             ].map(({ categoryNm, category }) => (
-                <MapFloatBtn
+                <CategoryFloatBtn
                     key={category}
                     categoryNm={categoryNm}
                     category={category}
@@ -47,4 +47,4 @@ const MapFloatSection = ({ getMapDataByApi }) => {
     );
 };
 
-export default MapFloatSection;
+export default CategoryFloatSection;

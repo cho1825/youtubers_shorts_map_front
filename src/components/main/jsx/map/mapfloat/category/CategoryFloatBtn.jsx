@@ -1,7 +1,7 @@
 import React from "react";
 import "../../../../css/CategoryFloatBtn.css";
 
-const MapFloatBtn = ({ categoryNm, category, isActive, onCategorySelect }) => {
+const CategoryFloatBtn = ({ categoryNm, category, isActive, onCategorySelect }) => {
     const handleClick = () => {
         onCategorySelect(category); // 부모 함수 호출
     };
@@ -16,4 +16,4 @@ const MapFloatBtn = ({ categoryNm, category, isActive, onCategorySelect }) => {
     );
 };
 
-export default MapFloatBtn;
+export default CategoryFloatBtn;

@@ -1,8 +1,11 @@
 
 .floating-button {
-    flex-direction: row;
+    width: 32%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 10px 25px;
-    font-size: 10px;
+    font-size: 0.9rem;
     text-align: center;
     font-weight: 600;
     text-transform: uppercase;
