@@ -1,0 +1,99 @@
+.information-float-section{
+    position: absolute;
+    display: none;
+    justify-content: center;
+    right: auto;
+    bottom: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 2%;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.9); /* 은은한 하얀색 (약간 투명) */
+    border-top-left-radius: 30px; /* 상단 왼쪽 라운드 */
+    border-top-right-radius: 30px; /* 상단 오른쪽 라운드 */
+    backdrop-filter: blur(10px); /* 유리 느낌 추가 (옵션) */
+
+}
+
+
+.information-float-section.expanded{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    right: auto;
+    bottom: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 30%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06); /* 부드럽고 자연스러운 그림자 */
+    background-color: rgba(255, 255, 255, 0.9); /* 은은한 하얀색 (약간 투명) */
+    border-top-left-radius: 30px; /* 상단 왼쪽 라운드 */
+    border-top-right-radius: 30px; /* 상단 오른쪽 라운드 */
+    backdrop-filter: blur(10px); /* 유리 느낌 추가 (옵션) */
+    gap: 10px;
+}
+
+.drag-section{
+    display: flex;
+    justify-content: center;
+}
+
+.info-section{
+    display: flex;
+    justify-content: flex-start;
+    height: 75%;
+}
+
+.text-info{
+    width: 80%;
+    padding: 10px 16px 15px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    font-size: 0.8rem;
+    gap: 2px;
+}
+
+.text-box-main{
+    display: flex;
+    justify-content: flex-start;
+    gap: 5px;
+}
+
+.text-box-sub{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 3px;
+    gap: 2px;
+    font-size: 0.6rem;
+}
+
+.place-name{
+    font-size: 1.1rem;
+    font-weight: 600;
+
+}
+.place-category{
+    display: inline-block;
+    vertical-align: top;
+    font-size: 0.9rem;
+    color: #888888;
+}
+
+.media-info{
+    width: 180px;
+    height: auto;
+    margin: 14px 25px 0 0;
+}
+.media-thumbnail{
+    border-radius: 8px;
+}
+
+.small-img{
+    width: 15px;
+    height: 15px;
+}
+
+

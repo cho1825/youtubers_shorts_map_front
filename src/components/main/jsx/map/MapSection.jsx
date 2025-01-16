@@ -1,15 +1,22 @@
-import "../css/MapSection.css"
+import "../../css/MapSection.css"
 import {CustomOverlayMap, Map, MapMarker} from "react-kakao-maps-sdk";
 import {useEffect, useMemo, useRef, useState} from "react";
 import { motion } from "framer-motion";
-import MapFloatSection from "./mapfloat/MapFloatSection.jsx";
+import CategoryFloatSection from "./mapfloat/category/CategoryFloatSection.jsx";
+import InformationFloatSection from "./mapfloat/information/InformationFloatSection.jsx";
+import useMarkerInfoStore from "../../../../store/markerInfo.js";
 
-const MapSection = ({showMessageSection, setShowMessageSection, mapData}) => {
-    const mapRef = useRef(null); // Map 객체 참조
+const MapSection = ({showMessageSection, mapData,getMapDataByApi}) => {
     const data = Array.isArray(mapData) ? mapData : [];
+
+    const mapRef = useRef(null); // Map 객체 참조
+    const floatSectionRef = useRef(null); // InformationFloatSection 참조
+
     const [bounds, setBounds] = useState(null); // 현재 지도 범위를 저장
     const [zoomLevel, setZoomLevel] = useState(7); // 현재 줌 레벨 상태 저장
+    const [isClick, setIsClick] = useState(false);
 
+    const markerInfo = useMarkerInfoStore((state) => state);
 
     // 지도 범위가 변경될 때 호출
     const handleBoundsChanged = (map) => {
@@ -49,12 +56,53 @@ const MapSection = ({showMessageSection, setShowMessageSection, mapData}) => {
     }, []);
 
 
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            console.log(event);
+            console.log(event.target);
+            console.log(floatSectionRef.current)
+            if (floatSectionRef.current && !floatSectionRef.current.contains(event.target)) {
+                setIsClick(false); // 외부 클릭 시 InformationFloatSection 닫기
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
+
+    const clickMarker = (marker) => {
+        const info = marker.location;
+
+        markerInfo.setAll({
+            id: info.id,
+            name: info.name,
+            categoryGroupName: info.categoryGroupName,
+            categoryName: info.categoryName,
+            description: info.description,
+            lotAddress: info.lotAddress,
+            roadAddress: info.roadAddress,
+            youtuberNm: info.youtuberNm,
+            videoId: info.videoId,
+            videoUrl: info.videoUrl,
+            latitude: info.latitude,
+            longitude: info.longitude,
+            phoneNumber: info.phoneNumber,
+            isClick: true,
+
+        })
+        setIsClick(true);
+    }
+
+
     return (
         //맵 섹션 두개로 분리
         showMessageSection ? (
             <motion.div
                 key={showMessageSection} // 상태 변화마다 초기화
-                className={`map-container ${showMessageSection ? "" : "expanded"}`}
+                className='map-container'
                 initial={{scale: 0 }} // 가운데에서 작게 시작
                 animate={{
                     // scale: 1, // 점점 커지며 나타남
@@ -70,7 +118,7 @@ const MapSection = ({showMessageSection, setShowMessageSection, mapData}) => {
                     transformOrigin: "center", // 애니메이션의 중심 설정
                 }}
             >
-                <div className={`map-round ${showMessageSection ? "" : "expanded"}`}>
+                <div className='map-round'>
                     <Map
                         className="kakao-map"
                         center={{lat: 36.3504119, lng: 127.3845475}}
@@ -167,6 +215,9 @@ const MapSection = ({showMessageSection, setShowMessageSection, mapData}) => {
                                     size: {width: 50, height: 50},
                                     options: {offset: {x: 15, y: 15}},
                                 }}
+                                onClick={()=>{
+                                    clickMarker({location});
+                                }}
                             />
                             {zoomLevel <= 5 && (
                                 <CustomOverlayMap
@@ -184,7 +235,13 @@ const MapSection = ({showMessageSection, setShowMessageSection, mapData}) => {
                         </div>
                     ))}
                 </Map>
-                <MapFloatSection/>
+                <CategoryFloatSection
+                    getMapDataByApi={getMapDataByApi}
+                />
+                {isClick && (
+                    <InformationFloatSection ref={floatSectionRef} />
+                )}
+
             </motion.div>
         )
 
