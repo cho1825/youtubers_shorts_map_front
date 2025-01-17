@@ -5,8 +5,12 @@ import { motion } from "framer-motion";
 import CategoryFloatSection from "./mapfloat/category/CategoryFloatSection.jsx";
 import InformationFloatSection from "./mapfloat/information/InformationFloatSection.jsx";
 import useMarkerInfoStore from "../../../../store/markerInfo.js";
+import useMapInfoStore from "../../../../store/mapInfo.js";
 
-const MapSection = ({showMessageSection, mapData,getMapDataByApi}) => {
+const MapSection = ({showTextSection}) => {
+
+    const mapData = useMapInfoStore((state) => state.mapData);
+
     const data = Array.isArray(mapData) ? mapData : [];
 
     const mapRef = useRef(null); // Map 객체 참조
@@ -99,15 +103,15 @@ const MapSection = ({showMessageSection, mapData,getMapDataByApi}) => {
 
     return (
         //맵 섹션 두개로 분리
-        showMessageSection ? (
+        showTextSection ? (
             <motion.div
-                key={showMessageSection} // 상태 변화마다 초기화
+                key={showTextSection} // 상태 변화마다 초기화
                 className='map-container'
                 initial={{scale: 0 }} // 가운데에서 작게 시작
                 animate={{
                     // scale: 1, // 점점 커지며 나타남
-                    scale: showMessageSection ? 1 : 0.9, // expanded 상태에서 설정된 크기로 확대
-                    rotate: showMessageSection ? [0, 0, 5, 0]: [], // 다 나타난 후 한 번 기울어짐
+                    scale: showTextSection ? 1 : 0.9, // expanded 상태에서 설정된 크기로 확대
+                    rotate: showTextSection ? [0, 0, 5, 0]: [], // 다 나타난 후 한 번 기울어짐
                 }}
                 transition={{
                     duration: 1.2, // 전체 애니메이션 지속 시간
@@ -236,7 +240,6 @@ const MapSection = ({showMessageSection, mapData,getMapDataByApi}) => {
                     ))}
                 </Map>
                 <CategoryFloatSection
-                    getMapDataByApi={getMapDataByApi}
                 />
                 {isClick && (
                     <InformationFloatSection ref={floatSectionRef} />

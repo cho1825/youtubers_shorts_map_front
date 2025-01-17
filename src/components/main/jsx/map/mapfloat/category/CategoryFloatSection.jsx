@@ -4,13 +4,14 @@ import "../../../../css/CategoryFloatSection.css";
 import { useState } from "react";
 import useMapInfoStore from "../../../../../../store/mapInfo.js";
 
-const CategoryFloatSection = ({ getMapDataByApi }) => {
+const CategoryFloatSection = () => {
     const [activeCategory, setActiveCategory] = useState("all");
 
     // 전역 상태
     const regionCode = useMapInfoStore((state) => state.regionCode);
     const youtuberNm = useMapInfoStore((state) => state.youtuberNm);
     const setCategory = useMapInfoStore((state) => state.setCategory);
+    const {getMapDataByApi} = useMapInfoStore();
 
     // 공통 데이터 전달 함수
     const handleCategorySelect = async (category) => {

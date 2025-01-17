@@ -2,7 +2,7 @@ import "../../css/TextSection.css"
 import YoutuberBtn from "./YoutuberBtn.jsx";
 
 
-const MessageSection = ({onZoomClick, setMapData, getMapDataByApi}) => {
+const TextSection = ({onZoomClick}) => {
 
     return (
         <div className="message-container">
@@ -18,7 +18,6 @@ const MessageSection = ({onZoomClick, setMapData, getMapDataByApi}) => {
                     count={"300개"}
                     regionCode={25}
                     youtuberNm={"맠카"}
-                    getMapDataByApi={getMapDataByApi}
                     onZoomClick={onZoomClick}
                 />
                 <YoutuberBtn
@@ -26,16 +25,11 @@ const MessageSection = ({onZoomClick, setMapData, getMapDataByApi}) => {
                     count={"50개"}
                     regionCode={25}
                     youtuberNm={"주인장"}
-                    getMapDataByApi={getMapDataByApi}
                     onZoomClick={onZoomClick}
                 />
-                {/*<input type="input" className="custom-review-input"  placeholder="후기를 남겨주세요." />*/}
-                {/*<div>*/}
-                {/*    <input type="submit" className="custom-button" value="남기러 가기"/>*/}
-                {/*</div>*/}
             </div>
         </div>
     );
 }
 
-export default MessageSection;
+export default TextSection;

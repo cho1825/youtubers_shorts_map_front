@@ -1,17 +1,19 @@
 import "/src/components/common/css/MainHeader.css"
 import {useNavigate} from "react-router-dom";
+import useMapInfoStore from "../../../store/mapInfo.js";
 
 
-const MainHeader = ({showMessageSection,setShowMessageSection,mapData,setMapData}) => {
+const MainHeader = ({showTextSection,setShowTextSection}) => {
     const navigate = useNavigate();
+    const {setMapData} = useMapInfoStore();
+
     const changeShowMessageSectionState = () => {
-        setShowMessageSection(true);
+        setShowTextSection(true);
         setMapData(null);
         navigate("/");
 
         if (navigator.vibrate) {
             navigator.vibrate(200); // 200ms 동안 진동
-            console.log("위이이잉")
         } else {
             console.log("Vibration API is not supported in this browser.");
         }
