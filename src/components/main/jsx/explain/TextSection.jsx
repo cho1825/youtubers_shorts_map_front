@@ -1,9 +1,11 @@
 import "../../css/TextSection.css"
 import YoutuberBtn from "./YoutuberBtn.jsx";
+import useRecommendersStore from "../../../../store/useRecommendersStore.js";
+import log from "eslint-plugin-react/lib/util/log.js";
 
 
 const TextSection = ({onZoomClick}) => {
-
+    const {recommenders} = useRecommendersStore();
     return (
         <div className="message-container">
             <div>
@@ -14,15 +16,16 @@ const TextSection = ({onZoomClick}) => {
             </div>
             <div className="review-container">
                 <YoutuberBtn
-                    name={"맠카 추천"}
-                    count={"300개"}
+                    name={recommenders[0].name}
+                    count={recommenders[0].placeCnt}
                     regionCode={25}
-                    youtuberNm={"맠카"}
+                    youtuberNm={recommenders[0].name}
                     onZoomClick={onZoomClick}
                 />
+
                 <YoutuberBtn
                     name={"주인장 추천"}
-                    count={"50개"}
+                    count={"0"}
                     regionCode={25}
                     youtuberNm={"주인장"}
                     onZoomClick={onZoomClick}

@@ -4,12 +4,14 @@ import {useEffect, useMemo, useRef, useState} from "react";
 import { motion } from "framer-motion";
 import CategoryFloatSection from "./mapfloat/category/CategoryFloatSection.jsx";
 import InformationFloatSection from "./mapfloat/information/InformationFloatSection.jsx";
-import useMarkerInfoStore from "../../../../store/markerInfo.js";
-import useMapInfoStore from "../../../../store/mapInfo.js";
+import useMarkerInfoStore from "../../../../store/useMarkerInfoStore.js";
+import useMapInfoStore from "../../../../store/useMapInfoStore.js";
+import useShowTextSectionStore from "../../../../store/useShowTextSectionStore.js";
 
-const MapSection = ({showTextSection}) => {
+const MapSection = () => {
 
     const mapData = useMapInfoStore((state) => state.mapData);
+    const { showTextSection } = useShowTextSectionStore();
 
     const data = Array.isArray(mapData) ? mapData : [];
 
@@ -62,17 +64,22 @@ const MapSection = ({showTextSection}) => {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            console.log(event);
-            console.log(event.target);
-            console.log(floatSectionRef.current)
             if (floatSectionRef.current && !floatSectionRef.current.contains(event.target)) {
                 setIsClick(false); // 외부 클릭 시 InformationFloatSection 닫기
             }
         };
 
+        const handleTouchStart = (event) => {
+            if (floatSectionRef.current && !floatSectionRef.current.contains(event.target)) {
+                setIsClick(false);
+            }
+        };
+
         document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("touchstart", handleTouchStart);
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("touchstart", handleTouchStart);
         };
     }, []);
 
@@ -219,6 +226,7 @@ const MapSection = ({showTextSection}) => {
                                     size: {width: 50, height: 50},
                                     options: {offset: {x: 15, y: 15}},
                                 }}
+                                clickable={true}
                                 onClick={()=>{
                                     clickMarker({location});
                                 }}
@@ -231,7 +239,12 @@ const MapSection = ({showTextSection}) => {
                                     }}
                                     clickable={true}
                                 >
-                                    <div className="custom-overlay always-visible">
+                                    <div
+                                        className="custom-overlay always-visible"
+                                        onClick={()=>{
+                                            clickMarker({location});
+                                        }}
+                                    >
                                         <span>{location.name}</span>
                                     </div>
                                 </CustomOverlayMap>

@@ -21,7 +21,9 @@ const useMapInfoStore = create((set) => ({
     getMapDataByApi: async (regionCode = "", youtuberNm = "", category = "") => {
         try {
             const response = await fetch(
-                `http://192.168.0.177:8080/api/makers?regionCode=${regionCode}&youtuberNm=${youtuberNm}&category=${category}`,
+                // `http://192.168.0.177:8080/api/makers?regionCode=${regionCode}&youtuberNm=${youtuberNm}&category=${category}`,
+                `http://youtube-map.ddns.net:30101/api/makers?regionCode=${regionCode}&youtuberNm=${youtuberNm}&category=${category}`,
+                // `http://172.30.1.52:8080/api/makers?regionCode=${regionCode}&youtuberNm=${youtuberNm}&category=${category}`,
                 {
                     method: "GET",
                 }
