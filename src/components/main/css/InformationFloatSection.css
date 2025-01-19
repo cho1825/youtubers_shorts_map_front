@@ -25,13 +25,12 @@
     bottom: 0;
     z-index: 1000;
     width: 100%;
-    height: 30%;
+    height: 35%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06); /* 부드럽고 자연스러운 그림자 */
     background-color: rgba(255, 255, 255, 0.9); /* 은은한 하얀색 (약간 투명) */
     border-top-left-radius: 30px; /* 상단 왼쪽 라운드 */
     border-top-right-radius: 30px; /* 상단 오른쪽 라운드 */
     backdrop-filter: blur(10px); /* 유리 느낌 추가 (옵션) */
-    gap: 10px;
 }
 
 .drag-section{
@@ -50,9 +49,9 @@
     padding: 10px 16px 15px 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     font-size: 0.8rem;
-    gap: 2px;
+    gap: 3px;
 }
 
 .text-box-main{
@@ -65,7 +64,8 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin-bottom: 3px;
+    margin-top: 3px;
+    /*margin-bottom: 3px;*/
     gap: 2px;
     font-size: 0.6rem;
 }
@@ -83,17 +83,56 @@
 }
 
 .media-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     width: 180px;
     height: auto;
     margin: 14px 25px 0 0;
 }
 .media-thumbnail{
     border-radius: 8px;
+    height: 60%;
+    margin-top: 10%;
 }
 
 .small-img{
     width: 15px;
     height: 15px;
+}
+
+.additional-info-section{
+}
+
+.detail-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 95%;
+    height: 37px;
+    margin: 0 auto 9px;
+    border-radius: 8px;
+    background-color: #F4A460;
+    /*background-color: #D3D3D3;*/
+    cursor: pointer;
+}
+
+.detail-text {
+    font-size: 14px;
+    color: black;
+}
+
+.detail-img {
+    width: 12px;
+    height: 15px;
+    /*background-image: url("../../../../public/img/down-arrow.png");*/
+    background-image: url("/public/img/down-arrow.png");
+    margin-right: 7px;
+    background-size: contain;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    margin-left: 5px;
+
 }
 
 

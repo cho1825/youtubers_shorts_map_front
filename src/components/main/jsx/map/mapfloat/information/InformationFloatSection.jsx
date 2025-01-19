@@ -1,15 +1,20 @@
 import React, { forwardRef } from "react";
+import { motion } from "framer-motion";
 import "../../../../css/InformationFloatSection.css"
-import useMarkerInfoStore from "../../../../../../store/markerInfo.js";
+import useMarkerInfoStore from "../../../../../../store/useMarkerInfoStore.js";
 
 
 const InformationFloatSection = forwardRef((props, ref) => {
 
     const markerInfo = useMarkerInfoStore((state) => state);
-    // const markerInfo = useMarkerInfoStore.getState;
 
     return (
-        <div
+
+
+        <motion.div
+            initial={{y:50, opacity: 0}}
+            animate={{y:0, opacity: 1}}
+            transition={{type:"spring", duration: 1}}
             ref={ref}
             className='information-float-section expanded'
         >
@@ -50,9 +55,12 @@ const InformationFloatSection = forwardRef((props, ref) => {
                 </div>
             </div>
             <div className="additional-info-section">
-
+                <button className="detail-btn">
+                    <span className="detail-text">상세보기</span>
+                    <span className="detail-img"></span>
+                </button>
             </div>
-        </div>
+        </motion.div>
     );
 });
 
