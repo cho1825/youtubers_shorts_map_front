@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import CategoryFloatBtn from "./CategoryFloatBtn.jsx";
 import "../../../../css/CategoryFloatSection.css";
 import { useState } from "react";
-import useMapInfoStore from "../../../../../../store/mapInfo.js";
+import useMapInfoStore from "../../../../../../store/useMapInfoStore.js";
 
 const CategoryFloatSection = () => {
     const [activeCategory, setActiveCategory] = useState("all");

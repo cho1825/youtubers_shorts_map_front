@@ -81,6 +81,7 @@
     text-align: center; /* 텍스트 중앙 정렬 */
     margin-left: 20px;
     margin-top: 25px;
+    z-index: 1000; /* 적절한 값으로 조정 */
 }
 
 .custom-overlay.always-visible span {
