@@ -10,6 +10,7 @@ import useRecommendersStore from "../store/useRecommendersStore.js";
 const MainPage = () => {
 
     const { showTextSection, setShowTextSection } = useShowTextSectionStore();
+
     const {getRecommendersDataByApi} = useRecommendersStore();
     const [isDataLoaded, setIsDataLoaded] = useState(false);
     const [loadingImage, setLoadingImage] = useState("");
@@ -63,7 +64,9 @@ const MainPage = () => {
         <div className="container">
 
             <HeaderSection/>
-            <MapSection/>
+            <MapSection
+                onZoomClick={personClick}
+            />
             {showTextSection &&
                 <TextSection
                     onZoomClick={personClick}

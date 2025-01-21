@@ -1,14 +1,16 @@
 import "../../css/MapSection.css"
 import {CustomOverlayMap, Map, MapMarker} from "react-kakao-maps-sdk";
-import {useEffect, useMemo, useRef, useState} from "react";
+import React, {useEffect, useMemo, useRef, useState} from "react";
 import { motion } from "framer-motion";
 import CategoryFloatSection from "./mapfloat/category/CategoryFloatSection.jsx";
 import InformationFloatSection from "./mapfloat/information/InformationFloatSection.jsx";
 import useMarkerInfoStore from "../../../../store/useMarkerInfoStore.js";
 import useMapInfoStore from "../../../../store/useMapInfoStore.js";
 import useShowTextSectionStore from "../../../../store/useShowTextSectionStore.js";
+import InformationModal from "./mapfloat/information/InformationModal.jsx";
+import useModalInfoStore from "../../../../store/useModalInfoStore.js";
 
-const MapSection = () => {
+const MapSection = ({onZoomClick}) => {
 
     const mapData = useMapInfoStore((state) => state.mapData);
     const { showTextSection } = useShowTextSectionStore();
@@ -22,7 +24,31 @@ const MapSection = () => {
     const [zoomLevel, setZoomLevel] = useState(7); // 현재 줌 레벨 상태 저장
     const [isClick, setIsClick] = useState(false);
 
+    const setYoutuberNm = useMapInfoStore((state) => state.setYoutuberNm);
+    const setRegionCode = useMapInfoStore((state) => state.setRegionCode);
+    const {getMapDataByApi} = useMapInfoStore();
+
     const markerInfo = useMarkerInfoStore((state) => state);
+
+    const isModalOpen = useModalInfoStore((state) => state.isModalOpen);
+
+    const handleClick = async () => {
+        try {
+            //전역 상태 관리 스토어에 넣어줌
+            onZoomClick();
+            // getMapDataByApi가 성공할 때까지 기다림
+            await getMapDataByApi(25, '맠카');
+            setRegionCode(25);
+            setYoutuberNm('맠카');
+        } catch (error) {
+            console.error("getMapDataByApi 호출 실패:", error);
+        }
+    };
+
+    useEffect(()=>{
+
+    },[isModalOpen])
+
 
     // 지도 범위가 변경될 때 호출
     const handleBoundsChanged = (map) => {
@@ -102,6 +128,8 @@ const MapSection = () => {
             longitude: info.longitude,
             phoneNumber: info.phoneNumber,
             isClick: true,
+            videoTitle: info.videoTitle,
+
 
         })
         setIsClick(true);
@@ -114,11 +142,11 @@ const MapSection = () => {
             <motion.div
                 key={showTextSection} // 상태 변화마다 초기화
                 className='map-container'
-                initial={{scale: 0 }} // 가운데에서 작게 시작
+                initial={{scale: 0}} // 가운데에서 작게 시작
                 animate={{
                     // scale: 1, // 점점 커지며 나타남
                     scale: showTextSection ? 1 : 0.9, // expanded 상태에서 설정된 크기로 확대
-                    rotate: showTextSection ? [0, 0, 5, 0]: [], // 다 나타난 후 한 번 기울어짐
+                    rotate: showTextSection ? [0, 0, 5, 0] : [], // 다 나타난 후 한 번 기울어짐
                 }}
                 transition={{
                     duration: 1.2, // 전체 애니메이션 지속 시간
@@ -128,6 +156,8 @@ const MapSection = () => {
                 style={{
                     transformOrigin: "center", // 애니메이션의 중심 설정
                 }}
+                onClick={handleClick}
+                onTouchStart={handleClick}
             >
                 <div className='map-round'>
                     <Map
@@ -227,7 +257,7 @@ const MapSection = () => {
                                     options: {offset: {x: 15, y: 15}},
                                 }}
                                 clickable={true}
-                                onClick={()=>{
+                                onClick={() => {
                                     clickMarker({location});
                                 }}
                             />
@@ -241,7 +271,7 @@ const MapSection = () => {
                                 >
                                     <div
                                         className="custom-overlay always-visible"
-                                        onClick={()=>{
+                                        onClick={() => {
                                             clickMarker({location});
                                         }}
                                     >
@@ -255,8 +285,9 @@ const MapSection = () => {
                 <CategoryFloatSection
                 />
                 {isClick && (
-                    <InformationFloatSection ref={floatSectionRef} />
+                    <InformationFloatSection ref={floatSectionRef}/>
                 )}
+                <InformationModal/>
 
             </motion.div>
         )

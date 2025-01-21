@@ -2,26 +2,38 @@ import "/src/components/common/css/MainHeader.css"
 import {useNavigate} from "react-router-dom";
 import useMapInfoStore from "../../../store/useMapInfoStore.js";
 import useShowTextSectionStore from "../../../store/useShowTextSectionStore.js";
+import {useEffect} from "react";
 
 
 const MainHeader = () => {
     const navigate = useNavigate();
     const {setMapData} = useMapInfoStore();
     const { changeShowTextSectionState } = useShowTextSectionStore();
+    const { showTextSection } = useShowTextSectionStore();
+    const { setShowTextSection } = useShowTextSectionStore();
 
-    return(
-        <div>
-            <div className="image-conrtainer" onClick={()=>{
-                changeShowTextSectionState(navigate, setMapData);
-            }}>
-                {/*<img src="../../../../public/img/DaejeonMap2-logo-black.png" alt="logo" className="logo-image"/>*/}
-                <img src="/img/DaejeonMap2-logo-black.png" alt="logo" className="logo-image"/>
+
+    useEffect(() => {
+    }, [showTextSection]);
+
+    return (
+        <div className="main-header">
+            <div
+                className="image-container"
+                onClick={() => {
+                    changeShowTextSectionState(navigate, setMapData);
+                    setShowTextSection(true);
+                }}
+            >
+                <img
+                    src={showTextSection ? "/img/DaejeonMap2-logo-black.png" : "/img/back_btnn.png"}
+                    alt="logo"
+                    className={showTextSection ? "logo-image" : "backBtn-image"}
+                />
             </div>
-            <div className="menu-icon">
-                <span className="menu-line"></span>
-                <span className="menu-line"></span>
-                <span className="menu-line"></span>
-            </div>
+            {/*<div className="menu-icon">*/}
+            {/*    <img src="/img/ham.png" alt="logo" className="menu-image" />*/}
+            {/*</div>*/}
         </div>
     );
 }

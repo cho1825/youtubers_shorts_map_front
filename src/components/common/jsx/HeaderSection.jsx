@@ -1,12 +1,10 @@
 import "../css/HeaderSection.css";
 import MainHeader from "./MainHeader.jsx";
 
-const HeaderSection = ({showTextSection,setShowTextSection}) => {
+const HeaderSection = () => {
     return (
         <div className="header-container">
             <MainHeader
-                showTextSection={showTextSection}
-                setShowTextSection={setShowTextSection}
             />
         </div>
     );
