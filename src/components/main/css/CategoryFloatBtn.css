@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
     padding: 10px 25px;
-    font-size: 0.7rem;
+    font-size: 0.9rem;
     text-align: center;
     font-weight: 600;
     text-transform: uppercase;
@@ -14,7 +14,7 @@
     border: none;
     border-radius: 50px;
     overflow: hidden;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.2s linear; /* 속도와 효과를 최적화 */
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
     cursor: pointer;
 }
