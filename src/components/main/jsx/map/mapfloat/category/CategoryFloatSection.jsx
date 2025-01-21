@@ -15,10 +15,11 @@ const CategoryFloatSection = () => {
 
     // 공통 데이터 전달 함수
     const handleCategorySelect = async (category) => {
+        setActiveCategory(category); // 로컬 상태 업데이트
         try {
             await getMapDataByApi(regionCode, youtuberNm, category);
             setCategory(category); // 전역 상태 업데이트
-            setActiveCategory(category); // 로컬 상태 업데이트
+
         } catch (error) {
             console.error("getMapDataByApi 호출 실패:", error);
         }

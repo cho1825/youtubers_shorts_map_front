@@ -16,6 +16,7 @@ const useMarkerInfoStore = create((set) => ({
     longitude: null,
     phoneNumber: null,
     isClick: false,
+    videoTitle: false,
 
     setId:(id) => set({id}),
     setName:(name) => set({name}),
@@ -31,6 +32,8 @@ const useMarkerInfoStore = create((set) => ({
     setLongitude:(longitude) => set({longitude}),
     setPhoneNumber: (phoneNumber) => set({phoneNumber}),
     setIsClick: (isClick) => set({isClick}),
+    setVideoTitle: (videoTitle) => set({videoTitle}),
+
     setAll: (newState) => set((state) => ({ ...state, ...newState })),
 }));
 

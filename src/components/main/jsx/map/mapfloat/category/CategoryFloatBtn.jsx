@@ -10,6 +10,7 @@ const CategoryFloatBtn = ({ categoryNm, category, isActive, onCategorySelect }) 
         <button
             className={`floating-button ${isActive ? "active" : ""}`}
             onClick={handleClick}
+            onTouchStart={handleClick}
         >
             {categoryNm}
         </button>
