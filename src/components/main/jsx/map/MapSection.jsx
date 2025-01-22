@@ -8,7 +8,6 @@ import useMarkerInfoStore from "../../../../store/useMarkerInfoStore.js";
 import useMapInfoStore from "../../../../store/useMapInfoStore.js";
 import useShowTextSectionStore from "../../../../store/useShowTextSectionStore.js";
 import InformationModal from "./mapfloat/information/InformationModal.jsx";
-import useModalInfoStore from "../../../../store/useModalInfoStore.js";
 
 const MapSection = ({onZoomClick}) => {
 
@@ -18,7 +17,7 @@ const MapSection = ({onZoomClick}) => {
     const data = Array.isArray(mapData) ? mapData : [];
 
     const mapRef = useRef(null); // Map 객체 참조
-    const floatSectionRef = useRef(null); // InformationFloatSection 참조
+    const infoSheetRef = useRef(null); // InformationFloatSection 참조
 
     const [bounds, setBounds] = useState(null); // 현재 지도 범위를 저장
     const [zoomLevel, setZoomLevel] = useState(7); // 현재 줌 레벨 상태 저장
@@ -45,9 +44,6 @@ const MapSection = ({onZoomClick}) => {
         }
     };
 
-    useEffect(()=>{
-
-    },[isModalOpen])
 
 
     // 지도 범위가 변경될 때 호출
@@ -90,13 +86,13 @@ const MapSection = ({onZoomClick}) => {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (floatSectionRef.current && !floatSectionRef.current.contains(event.target)) {
+            if (infoSheetRef.current && !infoSheetRef.current.contains(event.target)) {
                 setIsClick(false); // 외부 클릭 시 InformationFloatSection 닫기
             }
         };
 
         const handleTouchStart = (event) => {
-            if (floatSectionRef.current && !floatSectionRef.current.contains(event.target)) {
+            if (infoSheetRef.current && !infoSheetRef.current.contains(event.target)) {
                 setIsClick(false);
             }
         };
@@ -285,7 +281,8 @@ const MapSection = ({onZoomClick}) => {
                 <CategoryFloatSection
                 />
                 {isClick && (
-                    <InformationFloatSection ref={floatSectionRef}/>
+                    <InformationFloatSection ref={infoSheetRef}/>
+                    // <BottomSheet ref={infoSheetRef}/>
                 )}
                 <InformationModal/>
 

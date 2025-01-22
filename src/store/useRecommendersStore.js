@@ -7,8 +7,8 @@ const useRecommendersStore = create((set) => ({
     getRecommendersDataByApi:async ()=> {
         try {
             const response = await fetch(
-                // `http://192.168.0.177:8080/api/recommenders?cityId=1`
-                `http://youtube-map.ddns.net:30101/api/recommenders?cityId=1`
+                `http://192.168.0.177:8080/api/recommenders?cityId=1`
+                // `http://youtube-map.ddns.net:30101/api/recommenders?cityId=1`
                 // `http://172.30.1.52:8080/api/recommenders?cityId=1`
                 , {
                     method: "GET"

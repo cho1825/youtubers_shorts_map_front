@@ -2,17 +2,21 @@ import React, {forwardRef, useEffect, useState} from "react";
 import { motion } from "framer-motion";
 import "../../../../css/InformationFloatSection.css"
 import useMarkerInfoStore from "../../../../../../store/useMarkerInfoStore.js";
-import useModalInfoStore from "../../../../../../store/useModalInfoStore.js";
+import styled from "styled-components";
 
+const Handle = styled.div`
+  width: 40px;
+  height: 4px;
+  border-radius: 2px;
+  background-color: #DEE2E6;
+  margin: auto;
+`
 
-const InformationFloatSection = forwardRef((props, ref) => {
+const InformationFloatSection = forwardRef((props, infoSheet) => {
 
     const markerInfo = useMarkerInfoStore((state) => state);
-    const setIsModalOpen = useModalInfoStore((state) => state.setIsModalOpen);
 
-    const openDetailModal = () => {
-        setIsModalOpen(true);
-    };
+
 
     return (
         <>
@@ -20,11 +24,11 @@ const InformationFloatSection = forwardRef((props, ref) => {
                 initial={{y:50, opacity: 0}}
                 animate={{y:0, opacity: 1}}
                 transition={{type:"spring", duration: 1}}
-                ref={ref}
-                className='information-float-section expanded'
+                ref={infoSheet}
+                className='information-float-section'
             >
                 <div className="drag-section">
-                    __
+                    <Handle/>
                 </div>
                 <div className="info-section">
                     <div className="info-text">
@@ -52,7 +56,7 @@ const InformationFloatSection = forwardRef((props, ref) => {
                     </div>
                 </div>
                 <div className="additional-info-section">
-                    <button className="detail-btn" onClick={openDetailModal}>
+                    <button className="detail-btn">
                         <span className="detail-text">상세보기</span>
                         <span className="detail-img"></span>
                     </button>
