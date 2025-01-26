@@ -12,7 +12,7 @@ const Handle = styled.div`
   margin: auto;
 `
 
-const InformationFloatSection = forwardRef((props, infoSheet) => {
+const InformationFloatSection = forwardRef((props, infoSheetRef) => {
 
     const markerInfo = useMarkerInfoStore((state) => state);
 
@@ -24,7 +24,7 @@ const InformationFloatSection = forwardRef((props, infoSheet) => {
                 initial={{y:50, opacity: 0}}
                 animate={{y:0, opacity: 1}}
                 transition={{type:"spring", duration: 1}}
-                ref={infoSheet}
+                ref={infoSheetRef}
                 className='information-float-section'
             >
                 <div className="drag-section">

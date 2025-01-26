@@ -8,6 +8,7 @@ import useMarkerInfoStore from "../../../../store/useMarkerInfoStore.js";
 import useMapInfoStore from "../../../../store/useMapInfoStore.js";
 import useShowTextSectionStore from "../../../../store/useShowTextSectionStore.js";
 import InformationModal from "./mapfloat/information/InformationModal.jsx";
+import useInfoSheetHook from "../../../../hooks/useInfoSheetHook.jsx";
 
 const MapSection = ({onZoomClick}) => {
 
@@ -17,11 +18,10 @@ const MapSection = ({onZoomClick}) => {
     const data = Array.isArray(mapData) ? mapData : [];
 
     const mapRef = useRef(null); // Map 객체 참조
-    const infoSheetRef = useRef(null); // InformationFloatSection 참조
+    const { infoSheetRef, isClick, setIsClick } = useInfoSheetHook(); // 커스텀 훅 사용
 
     const [bounds, setBounds] = useState(null); // 현재 지도 범위를 저장
     const [zoomLevel, setZoomLevel] = useState(7); // 현재 줌 레벨 상태 저장
-    const [isClick, setIsClick] = useState(false);
 
     const setYoutuberNm = useMapInfoStore((state) => state.setYoutuberNm);
     const setRegionCode = useMapInfoStore((state) => state.setRegionCode);
@@ -29,7 +29,6 @@ const MapSection = ({onZoomClick}) => {
 
     const markerInfo = useMarkerInfoStore((state) => state);
 
-    const isModalOpen = useModalInfoStore((state) => state.isModalOpen);
 
     const handleClick = async () => {
         try {
@@ -43,8 +42,6 @@ const MapSection = ({onZoomClick}) => {
             console.error("getMapDataByApi 호출 실패:", error);
         }
     };
-
-
 
     // 지도 범위가 변경될 때 호출
     const handleBoundsChanged = (map) => {
@@ -84,26 +81,6 @@ const MapSection = ({onZoomClick}) => {
     }, []);
 
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (infoSheetRef.current && !infoSheetRef.current.contains(event.target)) {
-                setIsClick(false); // 외부 클릭 시 InformationFloatSection 닫기
-            }
-        };
-
-        const handleTouchStart = (event) => {
-            if (infoSheetRef.current && !infoSheetRef.current.contains(event.target)) {
-                setIsClick(false);
-            }
-        };
-
-        document.addEventListener("mousedown", handleClickOutside);
-        document.addEventListener("touchstart", handleTouchStart);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-            document.removeEventListener("touchstart", handleTouchStart);
-        };
-    }, []);
 
 
     const clickMarker = (marker) => {
