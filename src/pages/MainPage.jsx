@@ -7,11 +7,13 @@ import {useEffect, useState} from "react";
 import useShowTextSectionStore from "../store/useShowTextSectionStore.js";
 import useRecommendersStore from "../store/useRecommendersStore.js";
 import {useNavigate} from "react-router-dom";
+import useMapInfoStore from "../store/useMapInfoStore.js";
 
 const MainPage = () => {
 
     const { showTextSection, setShowTextSection, changeShowTextSectionState } = useShowTextSectionStore();
     const {getRecommendersDataByApi} = useRecommendersStore();
+    const { setMapData } = useMapInfoStore();
     const [isDataLoaded, setIsDataLoaded] = useState(false);
     const [loadingImage, setLoadingImage] = useState("");
     const navigate = useNavigate(); // React Router의 네비게이션 기능
@@ -42,8 +44,7 @@ const MainPage = () => {
 
             if (!showTextSection) {
                 console.log("뒤로가기 버튼이 눌렸습니다.");
-                setShowTextSection(true);
-                changeShowTextSectionState(navigate, () => setIsDataLoaded(false));
+                changeShowTextSectionState(navigate, setMapData);
                 history.pushState(null, null, location.href); // 다시 히스토리 추가하여 뒤로가기 무력화
             } else {
                 console.log("기본 뒤로가기 동작 실행");
