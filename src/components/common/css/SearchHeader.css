@@ -1,4 +1,4 @@
-.main-header {
+.search-header {
     height: 100%;
     width: 100%;
     display: flex;
@@ -6,7 +6,8 @@
     align-items: center; /* 세로 축 중앙 정렬 */
 }
 
-.image-container {
+
+.search-header .image-container{
     flex: 0 0 auto; /* 고정된 크기로 설정 */
     display: flex;
     align-items: center;
@@ -15,12 +16,10 @@
     padding-left: 10px;
 }
 
-.image-container img.logo{
-    height: 90%; /* 부모 높이의 80% */
+.back-arrow{
+    height: 60%; /* 부모 높이의 80% */
     object-fit: contain; /* 비율 유지하며 이미지 표시 */
     transition: opacity 0.3s ease-in-out;
     opacity: 1;
+    margin-left: 5px;
 }
-
-
-
