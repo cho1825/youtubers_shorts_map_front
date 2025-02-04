@@ -17,6 +17,7 @@ const useMarkerInfoStore = create((set) => ({
     phoneNumber: null,
     isClick: false,
     videoTitle: false,
+    publishedAt: null,
 
     setId:(id) => set({id}),
     setName:(name) => set({name}),
@@ -33,6 +34,7 @@ const useMarkerInfoStore = create((set) => ({
     setPhoneNumber: (phoneNumber) => set({phoneNumber}),
     setIsClick: (isClick) => set({isClick}),
     setVideoTitle: (videoTitle) => set({videoTitle}),
+    setPublishedAt: (publishedAt)=> set({publishedAt}),
 
     setAll: (newState) => set((state) => ({ ...state, ...newState })),
 }));

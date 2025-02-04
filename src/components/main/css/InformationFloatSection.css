@@ -15,6 +15,12 @@
     backdrop-filter: blur(10px); /* 유리 느낌 추가 (옵션) */
 }
 
+.information-float-section.fullscreen {
+    border-radius: 0;
+    z-index: 1004;
+    background-color: rgba(255, 255, 255, 1); /* 은은한 하얀색 (약간 투명) */
+}
+
 .drag-section{
     display: flex;
     justify-content: center;

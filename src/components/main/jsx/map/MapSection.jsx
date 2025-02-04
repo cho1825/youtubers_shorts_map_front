@@ -7,7 +7,6 @@ import InformationFloatSection from "./mapfloat/information/InformationFloatSect
 import useMarkerInfoStore from "../../../../store/useMarkerInfoStore.js";
 import useMapInfoStore from "../../../../store/useMapInfoStore.js";
 import useShowTextSectionStore from "../../../../store/useShowTextSectionStore.js";
-import InformationModal from "./mapfloat/information/InformationModal.jsx";
 import useInfoSheetHook from "../../../../hooks/useInfoSheetHook.jsx";
 
 const MapSection = ({onZoomClick}) => {
@@ -102,6 +101,7 @@ const MapSection = ({onZoomClick}) => {
             phoneNumber: info.phoneNumber,
             isClick: true,
             videoTitle: info.videoTitle,
+            publishedAt: info.publishedAt,
 
 
         })
@@ -259,9 +259,7 @@ const MapSection = ({onZoomClick}) => {
                 />
                 {isClick && (
                     <InformationFloatSection ref={infoSheetRef}/>
-                    // <BottomSheet ref={infoSheetRef}/>
                 )}
-                <InformationModal/>
 
             </motion.div>
         )

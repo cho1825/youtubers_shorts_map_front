@@ -9,7 +9,6 @@ export default function useInfoSheetHook() {
 
         const handleClickOutside = (event) => {
             if (infoSheetRef.current && !infoSheetRef.current.contains(event.target)) {
-                console.log(infoSheetRef.current);
                 setIsClick(false); // 외부 클릭 시 닫기
             }
         };
@@ -28,27 +27,11 @@ export default function useInfoSheetHook() {
         };
     }, []);
 
-    //요소 내부 클릭 후 끌어올리기 기능
-    useEffect(() => {
-        const dragTouchStart = (event) =>{
 
-            if (infoSheetRef.current && infoSheetRef.current.contains(event.target)) {
-                console.log("일차 눌림")
-            }
-        }
-
-        if (infoSheetRef.current){
-            infoSheetRef.current.addEventListener('touchstart', dragTouchStart);
-        }
-
-        return () => {
-            if (infoSheetRef.current){
-                infoSheetRef.current.removeEventListener("touchstart", dragTouchStart);
-            }
-        };
-
-    }, []);
-
-    return { infoSheetRef, isClick, setIsClick };
+    return {
+        infoSheetRef,
+        isClick,
+        setIsClick,
+    };
 }
 
