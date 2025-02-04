@@ -6,17 +6,19 @@ import { motion } from "framer-motion";
 import {useEffect, useState} from "react";
 import useShowTextSectionStore from "../store/useShowTextSectionStore.js";
 import useRecommendersStore from "../store/useRecommendersStore.js";
+import {useNavigate} from "react-router-dom";
 
 const MainPage = () => {
 
-    const { showTextSection, setShowTextSection } = useShowTextSectionStore();
-
+    const { showTextSection, setShowTextSection, changeShowTextSectionState } = useShowTextSectionStore();
     const {getRecommendersDataByApi} = useRecommendersStore();
     const [isDataLoaded, setIsDataLoaded] = useState(false);
     const [loadingImage, setLoadingImage] = useState("");
+    const navigate = useNavigate(); // React Router의 네비게이션 기능
 
     const personClick = () => {
         setShowTextSection(false);
+        history.pushState(null, null, location.href); // 뒤로가기 히스토리 추가
     }
 
     useEffect( () => {
@@ -32,7 +34,31 @@ const MainPage = () => {
         }
         fetchData();
 
-    }, []);
+    }, [isDataLoaded]);
+
+    useEffect(() => {
+        const handleBackButton = (event) => {
+            event.preventDefault(); // 기본 뒤로가기 방지
+
+            if (!showTextSection) {
+                console.log("뒤로가기 버튼이 눌렸습니다.");
+                setShowTextSection(true);
+                changeShowTextSectionState(navigate, () => setIsDataLoaded(false));
+                history.pushState(null, null, location.href); // 다시 히스토리 추가하여 뒤로가기 무력화
+            } else {
+                console.log("기본 뒤로가기 동작 실행");
+                navigate(-1); // 기본 뒤로가기 실행
+            }
+        };
+
+        // 페이지 로드 시 히스토리 추가 (뒤로가기 방지)
+        history.pushState(null, null, location.href);
+        window.addEventListener("popstate", handleBackButton);
+
+        return () => {
+            window.removeEventListener("popstate", handleBackButton);
+        };
+    }, [showTextSection, changeShowTextSectionState, navigate]);
 
 
     if (!isDataLoaded) {

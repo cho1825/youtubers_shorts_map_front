@@ -8,8 +8,12 @@ const useShowTextSectionStore = create((set) => ({
     setShowTextSection: (value) => set({ showTextSection: value }),
 
     changeShowTextSectionState: (navigate, setMapData)=>{
-        set({showTextSection: true});
-        setMapData(null);
+        set({ showTextSection: true });
+
+        if (setMapData) {
+            setMapData(null);
+        }
+
         navigate("/");
 
         if (navigator.vibrate) {

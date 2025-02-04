@@ -2,7 +2,6 @@ import "/src/components/common/css/MainHeader.css"
 import {useNavigate} from "react-router-dom";
 import useMapInfoStore from "../../../store/useMapInfoStore.js";
 import useShowTextSectionStore from "../../../store/useShowTextSectionStore.js";
-import {useEffect} from "react";
 
 
 const MainHeader = () => {
@@ -12,9 +11,6 @@ const MainHeader = () => {
     const { showTextSection } = useShowTextSectionStore();
     const { setShowTextSection } = useShowTextSectionStore();
 
-
-    useEffect(() => {
-    }, [showTextSection]);
 
     return (
         <div className="main-header">
