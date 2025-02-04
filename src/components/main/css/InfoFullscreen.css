@@ -30,6 +30,11 @@
     /*margin-top: 5px;*/
 }
 
+.backBtn-image{
+    height: 60%;
+
+}
+
 .text-container {
     padding-left: 0.5rem;
     margin-left: 10px;
