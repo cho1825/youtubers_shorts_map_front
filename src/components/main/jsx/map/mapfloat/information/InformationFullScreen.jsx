@@ -63,7 +63,10 @@ const InformationFullScreen = ({toggleFullScreen}) => {
                                   style={{backgroundImage: `url("/public/img/icons8-전화-96.png")`}}
                             ></span>
                             <span>
-                                    {markerInfo.phoneNumber}
+                                    <a href={`tel:${markerInfo.phoneNumber}`}
+                                       style={{textDecoration: 'none', color: 'inherit'}}>
+                                        {markerInfo.phoneNumber}
+                                    </a>
                             </span>
                         </p>
                     </div>
