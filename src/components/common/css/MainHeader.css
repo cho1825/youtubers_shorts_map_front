@@ -14,32 +14,18 @@
     cursor: pointer;
     padding-left: 10px;
 }
-.logo-image {
-    height: 90%; /* 부모 높이의 80% */
+
+.image-container img.loaded{
+    height: 80%; /* 부모 높이의 80% */
     object-fit: contain; /* 비율 유지하며 이미지 표시 */
-}
-
-.backBtn-image {
-    padding-left: 6px;
-    height: 50%; /* 부모 높이의 80% */
-    object-fit: contain; /* 비율 유지하며 이미지 표시 */
+    transition: opacity 0.3s ease-in-out;
+    opacity: 1;
 }
 
 
-.menu-icon {
-    flex: 0 0 auto; /* 고정된 크기로 설정 */
-    display: flex;
-    align-items: center;
-    justify-content: center; /* 내용 중앙 정렬 */
-    width: auto; /* 필요한 크기만큼 차지 */
-    height: 100%;
-    cursor: pointer;
+.image-container img.loading {
+    opacity: 0;
 }
 
-.menu-image {
-    margin-left: 15px;
-    height: 90%; /* 부모 높이의 80% */
-    object-fit: contain; /* 비율 유지하며 이미지 표시 */
-}
 
 
