@@ -8,8 +8,12 @@ import useMarkerInfoStore from "../../../../store/useMarkerInfoStore.js";
 import useMapInfoStore from "../../../../store/useMapInfoStore.js";
 import useShowTextSectionStore from "../../../../store/useShowTextSectionStore.js";
 import useInfoSheetHook from "../../../../hooks/useInfoSheetHook.jsx";
+import useMapCoordinateStore from "../../../../store/useMapCoordinateStore.js";
 
 const MapSection = ({onZoomClick}) => {
+
+    const {center,isPanto,zoomLevel} = useMapCoordinateStore();
+    const setZoomLevel = useMapCoordinateStore((state) => state.setZoomLevel);
 
     const mapData = useMapInfoStore((state) => state.mapData);
     const { showTextSection } = useShowTextSectionStore();
@@ -20,7 +24,6 @@ const MapSection = ({onZoomClick}) => {
     const { infoSheetRef, isClick, setIsClick } = useInfoSheetHook(); // 커스텀 훅 사용
 
     const [bounds, setBounds] = useState(null); // 현재 지도 범위를 저장
-    const [zoomLevel, setZoomLevel] = useState(7); // 현재 줌 레벨 상태 저장
 
     const setYoutuberNm = useMapInfoStore((state) => state.setYoutuberNm);
     const setRegionCode = useMapInfoStore((state) => state.setRegionCode);
@@ -50,6 +53,8 @@ const MapSection = ({onZoomClick}) => {
     // 줌 레벨 변경 시 호출
     const handleZoomChanged = (map) => {
         setZoomLevel(map.getLevel()); // 현재 줌 레벨 업데이트
+        const newLevel = map.getLevel();
+        console.log(`현재 줌 레벨: ${newLevel}`); // 줌 레벨 콘솔 로그 추가
     };
 
     // 지도 범위 내 데이터 필터링
@@ -108,6 +113,13 @@ const MapSection = ({onZoomClick}) => {
         setIsClick(true);
     }
 
+    useEffect(() => {
+        if (mapRef.current){
+            mapRef.current.setLevel(zoomLevel);
+            console.log("level 변경됨:", zoomLevel);
+        }
+    }, [zoomLevel]);
+
 
     return (
         //맵 섹션 두개로 분리
@@ -135,12 +147,14 @@ const MapSection = ({onZoomClick}) => {
                 <div className='map-round'>
                     <Map
                         className="kakao-map"
-                        center={{lat: 36.3504119, lng: 127.3845475}}
+                        // center={{lat: 36.3504119, lng: 127.3845475}}
+                        center={center}
+                        isPanto={isPanto}
                         style={{
                             width: "95%",
                             height: "94%"
                         }}
-                        level={7}
+                        level={zoomLevel}
                         onBoundsChanged={handleBoundsChanged} // 지도 범위 변경 이벤트
                         onZoomChanged={handleZoomChanged} // 줌 레벨 변경 이벤트
                         onCreate={(map) => {
@@ -202,12 +216,14 @@ const MapSection = ({onZoomClick}) => {
             >
                 <Map
                     className="kakao-map"
-                    center={{lat: 36.3504119, lng: 127.3845475}}
+                    // center={{lat: 36.3504119, lng: 127.3845475}}
+                    center={center}
+                    isPanto={isPanto}
                     style={{
                         width: "100%",
                         height: "100%",
                     }}
-                    level={7}
+                    level={zoomLevel}
                     onBoundsChanged={handleBoundsChanged} // 지도 범위 변경 이벤트
                     onZoomChanged={handleZoomChanged} // 줌 레벨 변경 이벤트
                     onCreate={(map) => {
