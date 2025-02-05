@@ -1,11 +1,11 @@
 
 .floating-button {
-    width: 32%;
+    width: 28%;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 10px 25px;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     text-align: center;
     font-weight: 600;
     text-transform: uppercase;
@@ -17,6 +17,7 @@
     transition: all 0.2s linear; /* 속도와 효과를 최적화 */
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
     cursor: pointer;
+    height: 80%;
 }
 .floating-button.active {
     background-color: orangered;
